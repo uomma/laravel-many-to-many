@@ -20,6 +20,14 @@
                     {{ $post->caption }}
 
                 </div>
+                <div>
+                    @forelse  {{ $post->$technologies as $technology }}
+                            {{$technologies->name}}
+                    @empty
+                        non ci sono technologies per sto post
+                    @endforelse
+
+                </div>
             </div>
 
         </div>
