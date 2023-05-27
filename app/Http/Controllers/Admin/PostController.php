@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Technology;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -30,7 +31,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+
+
+        $data=[
+            'technologies'=> Technology::all()->sortBy('name'),
+        ];
+        return view('admin.posts.create', $data);
     }
 
     /**
@@ -51,7 +57,11 @@ class PostController extends Controller
             $path_img= Storage::put('uploads/posts', $data['cover_img']);
             $post->cover_img = $path_img;            
         };
+
+        $technologies= isset($data['technologies']) ? $data['technologies'] : [];
         $post->save();
+        $post->technologies()->sync($technologies);
+
 
         return redirect()->route('admin.posts.index')->with('message', 'bravo hai creato un nuovo post'); 
     }

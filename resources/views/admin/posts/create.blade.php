@@ -30,8 +30,23 @@
                 <div class="mb-3">
                     <label for="cover_img" class="form-label">cover_img</label>
                     <input class="form-control" type="file" id="cover_img" name="cover_img">
-                  </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+                <div class="form-check">
+                    <div>technology</div>
+                    @foreach ($technologies as $technology)
+                    
+                  
+                        <input class="form-check-input" type="checkbox" value="{{ $technology->id }}" name="technologies[]"
+                            id="technologies">
+                        <label class="form-check-label" for="flexCheckDefault" naem>{{ $technology->name }}</label>
+                </div>
+                @endforeach
+
+<div class="m-5">
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</div>
             </form>
         </div>
     </div>
